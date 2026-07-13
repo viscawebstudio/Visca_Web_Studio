@@ -56,43 +56,27 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: name,
-          email: email,
-          phone: phone,
-          company: company,
-          business_type: projectType,
-          budget: budget,
-          message: message,
-        }),
-      });
+      const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || import.meta.env.EMAILJS_SERVICE_ID || "";
+      const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || import.meta.env.EMAILJS_TEMPLATE_ID || "";
+      const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || import.meta.env.EMAILJS_PUBLIC_KEY || "";
 
-      if (!response.ok) {
-        let errorMsg = "Failed to send your inquiry. Please try again or email us directly.";
-        try {
-          const data = await response.json();
-          if (data && data.error) {
-            errorMsg = data.error;
-          }
-        } catch (e) {
-          // Ignore json parse error
-        }
-        throw new Error(errorMsg);
+      if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+        throw new Error("EmailJS credentials are not configured. Please add them to the environment variables.");
       }
 
-      const responseData = await response.json();
-      
-      // Use the browser SDK to send the email with sanitized data
       await emailjs.send(
-        responseData.config.SERVICE_ID,
-        responseData.config.TEMPLATE_ID,
-        responseData.sanitizedData,
-        responseData.config.PUBLIC_KEY
+        SERVICE_ID,
+        TEMPLATE_ID,
+        {
+          name: name.trim(),
+          email: email.trim(),
+          phone: phone.trim(),
+          company: company.trim(),
+          business_type: projectType.trim(),
+          budget: budget.trim(),
+          message: message.trim(),
+        },
+        PUBLIC_KEY
       );
 
       setIsSubmitting(false);
