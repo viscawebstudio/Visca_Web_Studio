@@ -96,12 +96,12 @@ export default function Pricing() {
                   border: isStarter ? '1px solid rgba(120,170,255,0.28)' : undefined,
                   boxShadow: isStarter ? 'inset 0 1px 2px rgba(255,255,255,0.9), 0 18px 45px rgba(80,120,180,0.12)' : undefined
                 }}
-                className={`rounded-[32px] p-8 md:p-10 flex flex-col transition-all duration-300 ${
+                className={`rounded-[32px] p-8 md:p-10 flex flex-col transition-all duration-300 ease-in-out hover:shadow-[0_20px_50px_rgba(80,120,180,0.18)] ${
                   isElite
-                    ? "bg-gradient-to-b from-[#8ab4f8] via-[#8ab4f8] to-[#020b24] shadow-2xl relative z-10 md:-translate-y-4"
+                    ? "bg-gradient-to-b from-[#8ab4f8] via-[#8ab4f8] to-[#020b24] shadow-2xl relative z-10 md:-translate-y-4 hover:-translate-y-2 md:hover:-translate-y-6"
                     : isPremium
-                    ? "bg-gradient-to-b from-[#1B1B1B] via-[#101010] to-[#050505] border border-[rgba(212,175,55,0.35)] shadow-2xl relative z-10 md:-translate-y-4"
-                    : "relative z-0 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(80,120,180,0.18)] md:mb-4"
+                    ? "bg-gradient-to-b from-[#1B1B1B] via-[#101010] to-[#050505] border border-[rgba(212,175,55,0.35)] shadow-2xl relative z-10 md:-translate-y-4 hover:-translate-y-2 md:hover:-translate-y-6"
+                    : "relative z-0 md:mb-4 hover:-translate-y-2 md:hover:-translate-y-2"
                 }`}
               >
                 <div className="mb-8">
