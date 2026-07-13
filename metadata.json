@@ -1,0 +1,8 @@
+{
+  "name": "VISCA Studio",
+  "description": "A premium, high-performance website for a digital creative agency featuring sleek layouts, glassmorphism, smooth scrolling, and immersive animations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
