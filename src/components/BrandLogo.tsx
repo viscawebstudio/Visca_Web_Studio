@@ -21,7 +21,7 @@ export default function BrandLogo({
       {src && (
         <img 
           src={src} 
-          alt="Visca Web Studio" 
+          alt="Visca Web Studio Logo" 
           className="h-12 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
         />
       )}

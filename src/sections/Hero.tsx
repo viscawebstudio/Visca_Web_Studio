@@ -113,8 +113,9 @@ export default function Hero() {
             >
                <div ref={glowRef} className="absolute top-0 left-0 w-[400px] h-[400px] bg-blue-400/80 rounded-full blur-[80px] opacity-0 pointer-events-none mix-blend-screen z-10 will-change-transform" />
                <img 
+                 fetchPriority="high"
                  src="https://cdn.phototourl.com/free/2026-07-11-c1354655-df46-4159-8efe-28f1f56ede9a.png" 
-                 alt="Hero Showcase" 
+                 alt="Visca Web Studio dashboard digital product showcase" 
                  className="w-full h-full object-cover object-center relative z-0 transition-transform duration-700 ease-out group-hover:scale-[1.02]" 
                  style={{ imageRendering: "high-quality", WebkitFontSmoothing: "antialiased" }}
                />

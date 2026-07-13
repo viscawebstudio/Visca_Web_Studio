@@ -74,7 +74,7 @@ export default function Portfolio() {
               
               {/* Image Column */}
               <div className={`w-full lg:w-1/2 min-h-[350px] lg:min-h-[500px] relative flex items-center justify-center overflow-hidden ${project.imgBg} ${project.align === 'right' ? 'lg:order-2' : 'lg:order-1'}`}> 
-                <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+                <img loading="lazy" src={project.image} alt={`${project.title} - ${project.category} website design concept by Visca Web Studio`} className="w-full h-full object-cover" />
               </div>
 
               {/* Content Column */}

@@ -60,6 +60,14 @@ export default function App() {
   const { pathname, hash } = useLocation();
 
   useEffect(() => {
+    if (pathname === '/privacy') {
+      document.title = 'Privacy Policy | Visca Web Studio';
+    } else if (pathname === '/terms') {
+      document.title = 'Terms & Conditions | Visca Web Studio';
+    } else {
+      document.title = 'Visca Web Studio | Premium Website Design & Development';
+    }
+
     if (hash) {
       const id = hash.replace("#", "");
       setTimeout(() => {
