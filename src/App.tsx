@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import Navbar from "./components/Navbar";
 import Hero from "./sections/Hero";
 import Footer from "./components/Footer";
@@ -87,6 +88,7 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
+      <SpeedInsights />
     </div>
   );
 }
