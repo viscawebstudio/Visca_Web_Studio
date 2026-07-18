@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { ArrowRight, X } from "lucide-react";
+import { Link } from "react-router-dom";
 import emailjs from '@emailjs/browser';
+import { handleEmailClick } from '../utils/emailHandler';
 
 export default function Contact() {
   const [name, setName] = useState("");
@@ -115,35 +117,43 @@ export default function Contact() {
             <span className="text-blue-400">unforgettable.</span>
           </h2>
           
-          <p className="text-blue-200/70 text-base mb-12 max-w-sm">
+          <p className="text-blue-200 text-base mb-12 max-w-sm">
             Tell us about your project. We typically respond within one business day.
           </p>
 
           <div className="space-y-4">
             {/* Contact Options */}
             <a href="https://wa.me/919446054420" target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-5 rounded-2xl border border-blue-900/50 bg-[#05143a]/50 hover:bg-[#071a4a] transition-colors group">
-              <div>
-                <div className="text-[10px] font-bold tracking-widest text-blue-300/50 uppercase mb-1">WHATSAPP</div>
+              <div className="pointer-events-none">
+                <div className="text-[10px] font-bold tracking-widest text-blue-300 uppercase mb-1">WHATSAPP</div>
                 <div className="text-sm font-medium text-white">+91 9446054420</div>
               </div>
-              <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
+              <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors pointer-events-none" />
             </a>
             
-            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=viscawebstudio@gmail.com" target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-5 rounded-2xl border border-blue-900/50 bg-[#05143a]/50 hover:bg-[#071a4a] transition-colors group">
-              <div>
-                <div className="text-[10px] font-bold tracking-widest text-blue-300/50 uppercase mb-1">EMAIL</div>
+            <a href="mailto:viscawebstudio@gmail.com" target="_blank" rel="noopener noreferrer" onClick={handleEmailClick} className="flex items-center justify-between p-5 rounded-2xl border border-blue-900/50 bg-[#05143a]/50 hover:bg-[#071a4a] transition-colors group">
+              <div className="pointer-events-none">
+                <div className="text-[10px] font-bold tracking-widest text-blue-300 uppercase mb-1">EMAIL</div>
                 <div className="text-sm font-medium text-white">viscawebstudio@gmail.com</div>
               </div>
-              <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
+              <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors pointer-events-none" />
             </a>
             
             <a href="tel:+919446054420" className="flex items-center justify-between p-5 rounded-2xl border border-blue-900/50 bg-[#05143a]/50 hover:bg-[#071a4a] transition-colors group">
-              <div>
-                <div className="text-[10px] font-bold tracking-widest text-blue-300/50 uppercase mb-1">BOOK A CALL</div>
+              <div className="pointer-events-none">
+                <div className="text-[10px] font-bold tracking-widest text-blue-300 uppercase mb-1">BOOK A CALL</div>
                 <div className="text-sm font-medium text-white">Schedule on Calendly</div>
               </div>
-              <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
+              <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors pointer-events-none" />
             </a>
+
+            <Link to="/client-questionnaire" className="flex items-center justify-between p-5 rounded-2xl border border-blue-900/50 bg-[#05143a]/50 hover:bg-[#071a4a] transition-colors group">
+              <div className="pointer-events-none">
+                <div className="text-[10px] font-bold tracking-widest text-blue-300 uppercase mb-1">CLIENT QUESTIONNAIRE</div>
+                <div className="text-sm font-medium text-white">Complete our detailed project questionnaire</div>
+              </div>
+              <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors pointer-events-none" />
+            </Link>
           </div>
         </div>
 
@@ -158,7 +168,7 @@ export default function Contact() {
             <form onSubmit={handleSubmit} className="space-y-6">
               
               <div>
-                <label className="block text-[11px] font-bold tracking-widest text-blue-200/70 uppercase mb-2">NAME *</label>
+                <label className="block text-[11px] font-bold tracking-widest text-blue-200 uppercase mb-2">NAME *</label>
                 <input 
                   type="text" 
                   required
@@ -170,7 +180,7 @@ export default function Contact() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-[11px] font-bold tracking-widest text-blue-200/70 uppercase mb-2">EMAIL *</label>
+                  <label className="block text-[11px] font-bold tracking-widest text-blue-200 uppercase mb-2">EMAIL *</label>
                   <input 
                     type="email" 
                     required
@@ -180,7 +190,7 @@ export default function Contact() {
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-bold tracking-widest text-blue-200/70 uppercase mb-2">PHONE NUMBER *</label>
+                  <label className="block text-[11px] font-bold tracking-widest text-blue-200 uppercase mb-2">PHONE NUMBER *</label>
                   <input 
                     type="tel" 
                     inputMode="numeric"
@@ -197,7 +207,7 @@ export default function Contact() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-[11px] font-bold tracking-widest text-blue-200/70 uppercase mb-2">COMPANY</label>
+                  <label className="block text-[11px] font-bold tracking-widest text-blue-200 uppercase mb-2">COMPANY</label>
                   <input 
                     type="text" 
                     value={company}
@@ -206,7 +216,7 @@ export default function Contact() {
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-bold tracking-widest text-blue-200/70 uppercase mb-2">BUSINESS TYPE</label>
+                  <label className="block text-[11px] font-bold tracking-widest text-blue-200 uppercase mb-2">BUSINESS TYPE</label>
                   <input 
                     type="text" 
                     value={projectType}
@@ -217,7 +227,7 @@ export default function Contact() {
               </div>
               
               <div>
-                <label className="block text-[11px] font-bold tracking-widest text-blue-200/70 uppercase mb-2">BUDGET</label>
+                <label className="block text-[11px] font-bold tracking-widest text-blue-200 uppercase mb-2">BUDGET</label>
                 <input 
                   type="text" 
                   inputMode="numeric"
@@ -229,7 +239,7 @@ export default function Contact() {
               </div>
               
               <div>
-                <label className="block text-[11px] font-bold tracking-widest text-blue-200/70 uppercase mb-2">MESSAGE</label>
+                <label className="block text-[11px] font-bold tracking-widest text-blue-200 uppercase mb-2">MESSAGE</label>
                 <textarea 
                   rows={4} 
                   value={message}
@@ -256,7 +266,7 @@ export default function Contact() {
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={closeModal}></div>
           <div className="relative bg-[#05143a] border border-blue-900/50 rounded-[32px] p-8 md:p-12 shadow-2xl max-w-lg w-full text-center z-10">
             <h3 className="text-3xl font-bold tracking-tight leading-[1.1] mb-6 text-white">Thank You!</h3>
-            <p className="text-blue-200/80 text-base mb-10 leading-relaxed whitespace-pre-line">
+            <p className="text-blue-200 text-base mb-10 leading-relaxed whitespace-pre-line">
               Thank you for sending your inquiry.{"\n"}
               Your information has been sent to the Visca Web Studio team.
             </p>

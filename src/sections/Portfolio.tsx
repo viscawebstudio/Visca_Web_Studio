@@ -55,13 +55,13 @@ export default function Portfolio() {
               Work that <span className="text-blue-600">moves the</span><br />
               needle.
             </h2>
-            <p className="text-slate-500 text-lg max-w-xl leading-relaxed">
+            <p className="text-slate-700 text-lg max-w-xl leading-relaxed">
               Explore a selection of concept websites created to demonstrate our design thinking, development quality, and attention to detail. These showcase the standard of work clients can expect from Visca Web Studio.
             </p>
           </div>
           
           <div className="pb-4">
-            <button onClick={() => scrollToSection("contact")} className="group inline-flex items-center gap-2 text-xs font-bold tracking-widest text-slate-500 hover:text-[#020b24] transition-colors uppercase">
+            <button onClick={() => scrollToSection("contact")} className="group inline-flex items-center gap-2 text-xs font-bold tracking-widest text-slate-700 hover:text-[#020b24] transition-colors uppercase">
               START A PROJECT
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </button>
@@ -91,7 +91,7 @@ export default function Portfolio() {
                   <h3 className="text-4xl md:text-5xl font-bold text-[#020b24] mb-6">
                     {project.title}
                   </h3>
-                  <p className="text-slate-500 text-lg leading-relaxed max-w-sm">
+                  <p className="text-slate-700 text-lg leading-relaxed max-w-sm">
                     {project.description}
                   </p>
                 </div>

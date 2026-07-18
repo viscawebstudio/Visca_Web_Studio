@@ -57,12 +57,12 @@ export default function WhyVisca() {
                 <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-lg font-bold">
                   {reason.id}
                 </div>
-                <div className="text-[10px] font-bold tracking-widest text-blue-300/50 uppercase pt-2">
+                <div className="text-[10px] font-bold tracking-widest text-blue-300/90 uppercase pt-2">
                   VISCA
                 </div>
               </div>
               <h3 className="text-xl font-bold mb-3">{reason.title}</h3>
-              <p className="text-blue-200/70 text-sm leading-relaxed">
+              <p className="text-blue-100 text-sm leading-relaxed">
                 {reason.description}
               </p>
             </div>

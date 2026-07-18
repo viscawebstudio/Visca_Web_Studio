@@ -83,10 +83,10 @@ export default function Hero() {
         <h1 className="text-5xl md:text-7xl lg:text-[96px] font-bold leading-[1.05] tracking-tight mb-8 text-white font-sans">
           <div className="overflow-hidden pb-2"><div className="hero-title-line">Crafting digital</div></div>
           <div className="overflow-hidden pb-2"><div className="hero-title-line">experiences that</div></div>
-          <div className="overflow-hidden pb-2"><div className="hero-title-line text-[#7BA4F5] font-light">drive growth.</div></div>
+          <div className="overflow-hidden pb-2"><div className="hero-title-line text-[#7BA4F5] font-medium">drive growth.</div></div>
         </h1>
         
-        <p className="hero-desc text-slate-300 text-base md:text-xl max-w-3xl mb-12 leading-relaxed">
+        <p className="hero-desc text-slate-200 font-medium text-base md:text-xl max-w-3xl mb-12 leading-relaxed">
           We help ambitious brands transform ideas into exceptional digital products through strategy, design, and engineering.
         </p>
         

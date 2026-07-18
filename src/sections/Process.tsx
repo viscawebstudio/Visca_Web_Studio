@@ -69,7 +69,7 @@ export default function Process() {
                     <div className="relative md:static w-full">
                       <div className="text-[56px] leading-none font-bold text-[#020b24] mb-2">{step.id}</div>
                       <h3 className="text-xl font-bold text-[#020b24] mb-2">{step.title}</h3>
-                      <p className="text-slate-500 text-sm">{step.description}</p>
+                      <p className="text-slate-700 text-sm">{step.description}</p>
                       
                       {/* Floating dots decoration */}
                       <div className="hidden md:block absolute -left-20 top-1/2 w-3 h-3 bg-blue-600 rounded-full blur-[1px]"></div>
@@ -91,7 +91,7 @@ export default function Process() {
                     <div className="relative md:static w-full">
                       <div className="text-[56px] leading-none font-bold text-blue-600 mb-2">{step.id}</div>
                       <h3 className="text-xl font-bold text-[#020b24] mb-2">{step.title}</h3>
-                      <p className="text-slate-500 text-sm">{step.description}</p>
+                      <p className="text-slate-700 text-sm">{step.description}</p>
                       
                       {/* Floating dots decoration */}
                       <div className="hidden md:block absolute -right-12 top-1/2 w-3 h-3 bg-blue-600 rounded-full blur-[1px]"></div>

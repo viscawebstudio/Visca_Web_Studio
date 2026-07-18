@@ -5,6 +5,8 @@ import Hero from "./sections/Hero";
 import Footer from "./components/Footer";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
+import ClientQuestionnaire from "./pages/ClientQuestionnaire";
+import SharedResponse from "./pages/SharedResponse";
 
 // Lazy loaded sections
 const Services = lazy(() => import("./sections/Services"));
@@ -64,6 +66,8 @@ export default function App() {
       document.title = 'Privacy Policy | Visca Web Studio';
     } else if (pathname === '/terms') {
       document.title = 'Terms & Conditions | Visca Web Studio';
+    } else if (pathname === '/client-questionnaire') {
+      document.title = 'Client Questionnaire | Visca Web Studio';
     } else {
       document.title = 'Visca Web Studio | Premium Website Design & Development';
     }
@@ -92,6 +96,8 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
+          <Route path="/client-questionnaire" element={<ClientQuestionnaire />} />
+          <Route path="/shared/:token" element={<SharedResponse />} />
         </Routes>
       </main>
       <Footer />

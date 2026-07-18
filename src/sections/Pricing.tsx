@@ -74,7 +74,7 @@ export default function Pricing() {
   };
 
   return (
-    <section id="pricing" className="pb-32 px-6 md:px-12 bg-white">
+    <section id="pricing" className="pb-32 px-6 md:px-12 bg-gradient-to-b from-transparent via-[#D8E6F5] to-[#CDE1F4]">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-blue-600 tracking-tight leading-[1.2] max-w-2xl mx-auto">
@@ -91,17 +91,12 @@ export default function Pricing() {
             return (
               <div 
                 key={i} 
-                style={{
-                  background: isStarter ? 'linear-gradient(180deg, #EAF4FF 0%, #DCEEFF 55%, #CFE6FF 100%)' : undefined,
-                  border: isStarter ? '1px solid rgba(120,170,255,0.28)' : undefined,
-                  boxShadow: isStarter ? 'inset 0 1px 2px rgba(255,255,255,0.9), 0 18px 45px rgba(80,120,180,0.12)' : undefined
-                }}
-                className={`rounded-[32px] p-8 md:p-10 flex flex-col transition-all duration-300 ease-in-out hover:shadow-[0_20px_50px_rgba(80,120,180,0.18)] ${
+                className={`rounded-[32px] p-8 md:p-10 flex flex-col transition-all duration-300 ease-in-out ${
                   isElite
-                    ? "bg-gradient-to-b from-[#8ab4f8] via-[#8ab4f8] to-[#020b24] shadow-2xl relative z-10 md:-translate-y-4 hover:-translate-y-2 md:hover:-translate-y-6"
+                    ? "bg-gradient-to-b from-[#8ab4f8] via-[#8ab4f8] to-[#020b24] shadow-2xl hover:shadow-[0_20px_50px_rgba(80,120,180,0.18)] relative z-10 md:-translate-y-4 hover:-translate-y-2 md:hover:-translate-y-6"
                     : isPremium
-                    ? "bg-gradient-to-b from-[#1B1B1B] via-[#101010] to-[#050505] border border-[rgba(212,175,55,0.35)] shadow-2xl relative z-10 md:-translate-y-4 hover:-translate-y-2 md:hover:-translate-y-6"
-                    : "relative z-0 md:mb-4 hover:-translate-y-2 md:hover:-translate-y-2"
+                    ? "bg-gradient-to-b from-[#1B1B1B] via-[#101010] to-[#050505] border border-[rgba(212,175,55,0.35)] shadow-2xl hover:shadow-[0_20px_50px_rgba(80,120,180,0.18)] relative z-10 md:-translate-y-4 hover:-translate-y-2 md:hover:-translate-y-6"
+                    : "bg-gradient-to-b from-[#D4EBFF] via-[#BDDEFF] to-[#A3CFFF] shadow-[inset_0_-30px_80px_rgba(37,99,235,0.15),inset_0_0_0_1px_rgba(255,255,255,0.5),0_18px_45px_rgba(80,120,180,0.12)] hover:shadow-[inset_0_-30px_80px_rgba(37,99,235,0.15),inset_0_0_0_1px_rgba(255,255,255,0.5),0_25px_50px_rgba(80,120,180,0.22)] relative z-0 md:mb-4 hover:-translate-y-2 md:hover:-translate-y-2"
                 }`}
               >
                 <div className="mb-8">
@@ -124,7 +119,7 @@ export default function Pricing() {
                     <li key={j} className="flex items-start gap-3">
                       <svg className={`w-5 h-5 mt-0.5 shrink-0 ${
                         isElite ? 'text-[#020b24]' : 
-                        isPremium ? 'text-[#D4AF37]' : 'text-slate-400'
+                        isPremium ? 'text-[#D4AF37]' : 'text-blue-600'
                       }`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="20 6 9 17 4 12" />
                       </svg>
@@ -145,7 +140,7 @@ export default function Pricing() {
                       ? "bg-[#020617] text-white hover:bg-[#0f172a]"
                       : isPremium
                       ? "bg-gradient-to-b from-[#F8E28A] to-[#D4AF37] text-[#111111] hover:brightness-110"
-                      : "bg-[#e2e8f0] text-[#020617] hover:bg-[#cbd5e1]"
+                      : "bg-[#8ab4f8] text-[#020617] hover:bg-[#7ba4f5]"
                   }`}
                 >
                   {plan.buttonText}

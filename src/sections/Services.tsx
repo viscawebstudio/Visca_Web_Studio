@@ -93,7 +93,7 @@ export default function Services() {
             </h2>
           </div>
           <div className="max-w-sm">
-            <p className="text-slate-500 text-base leading-relaxed">
+            <p className="text-slate-700 text-base leading-relaxed">
               Strategy, design, and engineering under one roof — composed into a single, calm process.
             </p>
           </div>
@@ -109,10 +109,10 @@ export default function Services() {
                 {service.icon}
               </div>
               <h3 className="text-lg font-bold text-[#020b24] mb-3">{service.title}</h3>
-              <p className="text-sm text-slate-500 leading-relaxed mb-12 flex-grow">
+              <p className="text-sm text-slate-700 leading-relaxed mb-12 flex-grow">
                 {service.description}
               </p>
-              <div className="text-xs font-medium text-slate-300 mt-auto">
+              <div className="text-xs font-medium text-slate-500 mt-auto">
                 {service.id}
               </div>
             </div>

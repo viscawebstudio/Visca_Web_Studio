@@ -59,7 +59,7 @@ export default function Testimonials() {
                 <div className="w-10 h-10 rounded-full bg-blue-600"></div>
                 <div>
                   <div className="text-sm font-bold text-[#020b24]">{test.author}</div>
-                  <div className="text-xs text-slate-500">{test.title}</div>
+                  <div className="text-xs text-slate-700">{test.title}</div>
                 </div>
               </div>
             </div>
@@ -68,7 +68,7 @@ export default function Testimonials() {
 
         {/* Trusted By */}
         <div className="text-center">
-          <div className="text-[11px] font-bold tracking-widest text-slate-400 uppercase mb-12">
+          <div className="text-[11px] font-bold tracking-widest text-slate-700 uppercase mb-12">
             TRUSTED BY TEAMS WORLDWIDE
           </div>
           <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">

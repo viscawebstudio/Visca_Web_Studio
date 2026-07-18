@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import BrandLogo from "./BrandLogo";
 import footerLogo from "../assets/images/regenerated_image_1783781365216.jpg";
+import { handleEmailClick } from '../utils/emailHandler';
 
 export default function Footer() {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ export default function Footer() {
           {/* Logo & Description */}
           <div className="lg:col-span-2">
             <BrandLogo className="mb-6" alignItems="items-start" src={footerLogo} />
-            <p className="text-blue-200/60 text-sm leading-relaxed max-w-sm">
+            <p className="text-blue-200 text-sm leading-relaxed max-w-sm">
               A design and engineering studio building digital products — and beyond.
             </p>
           </div>
@@ -39,37 +40,38 @@ export default function Footer() {
           <div>
             <div className="text-[11px] font-bold tracking-widest text-blue-400 uppercase mb-6">COMPANY</div>
             <ul className="space-y-4">
-              <li><a href="#why-visca" onClick={(e) => scrollToSection(e, 'why-visca')} className="text-blue-200/80 hover:text-white text-sm transition-colors cursor-pointer">About</a></li>
-              <li><a href="#services" onClick={(e) => scrollToSection(e, 'services')} className="text-blue-200/80 hover:text-white text-sm transition-colors cursor-pointer">Services</a></li>
-              <li><a href="#portfolio" onClick={(e) => scrollToSection(e, 'portfolio')} className="text-blue-200/80 hover:text-white text-sm transition-colors cursor-pointer">Portfolio</a></li>
-              <li><a href="#process" onClick={(e) => scrollToSection(e, 'process')} className="text-blue-200/80 hover:text-white text-sm transition-colors cursor-pointer">Process</a></li>
-              <li><a href="#testimonials" onClick={(e) => scrollToSection(e, 'testimonials')} className="text-blue-200/80 hover:text-white text-sm transition-colors cursor-pointer">Testimonials</a></li>
+              <li><a href="#why-visca" onClick={(e) => scrollToSection(e, 'why-visca')} className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer">About</a></li>
+              <li><a href="#services" onClick={(e) => scrollToSection(e, 'services')} className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer">Services</a></li>
+              <li><a href="#portfolio" onClick={(e) => scrollToSection(e, 'portfolio')} className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer">Portfolio</a></li>
+              <li><a href="#process" onClick={(e) => scrollToSection(e, 'process')} className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer">Process</a></li>
+              <li><a href="#testimonials" onClick={(e) => scrollToSection(e, 'testimonials')} className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer">Testimonials</a></li>
             </ul>
           </div>
           
           <div>
             <div className="text-[11px] font-bold tracking-widest text-blue-400 uppercase mb-6">SERVICES</div>
             <ul className="space-y-4">
-              <li><a href="#services" onClick={(e) => scrollToSection(e, 'services')} className="text-blue-200/80 hover:text-white text-sm transition-colors cursor-pointer">UI/UX</a></li>
-              <li><a href="#services" onClick={(e) => scrollToSection(e, 'services')} className="text-blue-200/80 hover:text-white text-sm transition-colors cursor-pointer">Web Design</a></li>
-              <li><a href="#services" onClick={(e) => scrollToSection(e, 'services')} className="text-blue-200/80 hover:text-white text-sm transition-colors cursor-pointer">Development</a></li>
-              <li><a href="#services" onClick={(e) => scrollToSection(e, 'services')} className="text-blue-200/80 hover:text-white text-sm transition-colors cursor-pointer">Branding</a></li>
+              <li><a href="#services" onClick={(e) => scrollToSection(e, 'services')} className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer">UI/UX</a></li>
+              <li><a href="#services" onClick={(e) => scrollToSection(e, 'services')} className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer">Web Design</a></li>
+              <li><a href="#services" onClick={(e) => scrollToSection(e, 'services')} className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer">Development</a></li>
+              <li><a href="#services" onClick={(e) => scrollToSection(e, 'services')} className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer">Branding</a></li>
             </ul>
           </div>
           
           <div>
             <div className="text-[11px] font-bold tracking-widest text-blue-400 uppercase mb-6">CONNECT</div>
             <ul className="space-y-4">
-              <li><a href="#contact" onClick={(e) => scrollToSection(e, 'contact')} className="text-blue-200/80 hover:text-white text-sm transition-colors cursor-pointer">Contact</a></li>
-              <li><a href="https://instagram.com/viscawebstudio" target="_blank" rel="noopener noreferrer" className="text-blue-200/80 hover:text-white text-sm transition-colors cursor-pointer">@viscawebstudio</a></li>
-              <li><a href="https://wa.me/919446054420" target="_blank" rel="noopener noreferrer" className="text-blue-200/80 hover:text-white text-sm transition-colors cursor-pointer">+91 9446054420</a></li>
-              <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=viscawebstudio@gmail.com" target="_blank" rel="noopener noreferrer" className="text-blue-200/80 hover:text-white text-sm transition-colors cursor-pointer">viscawebstudio@gmail.com</a></li>
+              <li><Link to="/client-questionnaire" className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer">Client Questionnaire</Link></li>
+              <li><a href="#contact" onClick={(e) => scrollToSection(e, 'contact')} className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer">Contact</a></li>
+              <li><a href="https://instagram.com/viscawebstudio" target="_blank" rel="noopener noreferrer" className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer">@viscawebstudio</a></li>
+              <li><a href="https://wa.me/919446054420" target="_blank" rel="noopener noreferrer" className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer">+91 9446054420</a></li>
+              <li><a href="mailto:viscawebstudio@gmail.com" target="_blank" rel="noopener noreferrer" onClick={handleEmailClick} className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer">viscawebstudio@gmail.com</a></li>
             </ul>
           </div>
         </div>
 
         {/* Bottom */}
-        <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/10 text-xs text-blue-200/50">
+        <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/10 text-xs text-blue-200">
           <div>© Visca Web Studio. All rights reserved.</div>
           <div className="flex gap-6 mt-4 md:mt-0">
             <Link to="/privacy" className="hover:text-white transition-colors cursor-pointer">Privacy</Link>

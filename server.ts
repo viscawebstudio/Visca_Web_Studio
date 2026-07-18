@@ -4,6 +4,7 @@ import { createServer as createViteServer } from "vite";
 import dotenv from "dotenv";
 import helmet from "helmet";
 import compression from "compression";
+import questionnaireRouter from "./server/questionnaire";
 
 dotenv.config();
 
@@ -26,7 +27,7 @@ async function startServer() {
         styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
         fontSrc: ["'self'", "https://fonts.gstatic.com"],
         imgSrc: ["'self'", "data:", "https://images.unsplash.com", "https://cdn.phototourl.com"],
-        connectSrc: ["'self'", "https://api.emailjs.com"],
+        connectSrc: ["'self'", "https://api.emailjs.com", "ws:", "wss:"],
         frameAncestors: ["*"], // Allow framing in AI Studio
         formAction: ["'self'"],
         baseUri: ["'self'"],
@@ -48,7 +49,10 @@ async function startServer() {
     next();
   });
 
-  app.use(express.json());
+  app.use(express.json({ limit: "1mb" })); // Request size limits
+
+  // API Routes
+  app.use("/api/questionnaire", questionnaireRouter);
 
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {

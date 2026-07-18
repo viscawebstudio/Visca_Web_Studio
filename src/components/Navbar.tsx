@@ -39,8 +39,13 @@ export default function Navbar() {
     { id: "contact", label: "Contact" },
   ];
 
-  const scrollToSection = (id: string) => {
+  const handleNavClick = (id: string, path?: string) => {
     setIsMobileMenuOpen(false);
+    if (path) {
+      navigate(path);
+      return;
+    }
+    
     if (location.pathname !== "/") {
       navigate(`/#${id}`);
     } else {
@@ -60,24 +65,31 @@ export default function Navbar() {
         isScrolled ? "py-4 bg-[#020b24]/90 backdrop-blur-md border-b border-white/5" : "py-6 bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center relative z-[10000]">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6 min-[1360px]:px-12 flex justify-between items-center relative z-[10000]">
         {/* Logo */}
-        <BrandLogo onClick={() => scrollToSection("hero")} src={navLogo} />
+        <BrandLogo onClick={() => handleNavClick("hero")} src={navLogo} />
 
         {/* Desktop Links */}
-        <div className="hidden lg:flex items-center gap-8 text-[15px] font-medium">
+        <div className="hidden xl:flex items-center xl:gap-2 min-[1320px]:gap-3 min-[1400px]:gap-5 2xl:gap-8 text-[14px] 2xl:text-[15px] font-medium whitespace-nowrap">
           {navItems.map((item) => (
             <button
               key={item.id}
-              onClick={() => scrollToSection(item.id)}
-              className="transition-colors cursor-pointer text-white hover:text-blue-300"
+              onClick={() => handleNavClick(item.id)}
+              className="transition-colors cursor-pointer text-white hover:text-blue-300 whitespace-nowrap"
             >
               {item.label}
             </button>
           ))}
           <button
-            onClick={() => scrollToSection("contact")}
-            className="ml-4 px-6 py-3 bg-[#030712] border border-[#1e293b] hover:border-blue-500/50 text-white rounded-full font-semibold text-sm flex items-center gap-2 transition-all hover:bg-slate-900"
+            onClick={() => handleNavClick("questionnaire", "/client-questionnaire")}
+            className="transition-colors cursor-pointer text-white hover:text-blue-300 font-semibold whitespace-nowrap"
+          >
+            Client Questionnaire
+          </button>
+          
+          <button
+            onClick={() => handleNavClick("contact")}
+            className="xl:ml-1.5 xl:px-3 xl:py-2 min-[1320px]:ml-2 min-[1320px]:px-4 min-[1320px]:py-2.5 2xl:ml-4 2xl:px-6 2xl:py-3 bg-[#030712] border border-[#1e293b] hover:border-blue-500/50 text-white rounded-full font-semibold text-sm flex items-center gap-2 transition-all hover:bg-slate-900 whitespace-nowrap"
           >
             Book a Discovery Call
             <ArrowRight className="w-4 h-4" />
@@ -87,7 +99,7 @@ export default function Navbar() {
         {/* Mobile Hamburger */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="lg:hidden text-white p-2"
+          className="xl:hidden text-white p-2"
         >
           {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
@@ -95,19 +107,25 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 bg-[#020b24] z-[9999] flex flex-col p-6 pt-[100px] lg:hidden overflow-y-auto">
+        <div className="fixed inset-0 bg-[#020b24] z-[9999] flex flex-col p-6 pt-[100px] xl:hidden overflow-y-auto">
           <div className="flex flex-col gap-6 mt-8">
             {navItems.map((item) => (
               <button
                 key={item.id}
-                onClick={() => scrollToSection(item.id)}
+                onClick={() => handleNavClick(item.id)}
                 className="text-left text-2xl font-bold text-white py-2 border-b border-white/5"
               >
                 {item.label}
               </button>
             ))}
             <button
-              onClick={() => scrollToSection("contact")}
+              onClick={() => handleNavClick("questionnaire", "/client-questionnaire")}
+              className="text-left text-2xl font-bold text-white py-2 border-b border-white/5"
+            >
+              Client Questionnaire
+            </button>
+            <button
+              onClick={() => handleNavClick("contact")}
               className="mt-8 px-6 py-4 bg-[#030712] text-white rounded-full font-bold text-lg flex items-center justify-center gap-2"
             >
               Book a Discovery Call
