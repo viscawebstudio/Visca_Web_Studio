@@ -192,6 +192,9 @@ router.post("/logout", (req: any, res: any) => {
 // Get responses
 router.get("/responses", requireAuth, async (req: any, res: any) => {
   try {
+    res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+    res.setHeader("Pragma", "no-cache");
+    res.setHeader("Expires", "0");
     const allResponses = await db.select().from(submissions);
     res.status(200).json(allResponses);
   } catch (error) {
@@ -281,6 +284,9 @@ router.post("/responses/share/disable", requireAuth, async (req: any, res: any) 
 router.get("/shared/:token", async (req: any, res: any) => {
   const { token } = req.params;
   try {
+    res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+    res.setHeader("Pragma", "no-cache");
+    res.setHeader("Expires", "0");
     const row = await db.select().from(submissions).where(eq(submissions.share_token, token)).limit(1);
     if (row.length === 0) return res.status(404).json({ error: "Not found" });
     const sub = row[0];
