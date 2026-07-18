@@ -9,7 +9,33 @@ import { inArray, eq } from 'drizzle-orm';
 
 const router = Router();
 
-const activeSessions = new Set<string>();
+const SESSION_SECRET = process.env.STUDIO_ACCESS_CODE || process.env.SESSION_SECRET || "visca-web-studio-secret-key-123";
+
+function generateSessionToken(): string {
+  const expiresAt = Date.now() + 30 * 60 * 1000; // 30 mins
+  const payload = JSON.stringify({ expiresAt });
+  const hmac = crypto.createHmac("sha256", SESSION_SECRET).update(payload).digest("hex");
+  return Buffer.from(payload).toString("base64") + "." + hmac;
+}
+
+function verifySessionToken(token: string | undefined): boolean {
+  if (!token) return false;
+  try {
+    const parts = token.split(".");
+    if (parts.length !== 2) return false;
+    const [payloadB64, signature] = parts;
+    const payloadStr = Buffer.from(payloadB64, "base64").toString("utf8");
+    const hmac = crypto.createHmac("sha256", SESSION_SECRET).update(payloadStr).digest("hex");
+    if (hmac !== signature) return false;
+    
+    const { expiresAt } = JSON.parse(payloadStr);
+    if (Date.now() > expiresAt) return false;
+    
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
 
 // Rate limiters
 const submitLimiter = rateLimit({
@@ -35,7 +61,7 @@ router.use(cookieParser());
 // Auth middleware
 const requireAuth = (req: any, res: any, next: any) => {
   const token = req.cookies.admin_session;
-  if (!token || !activeSessions.has(token)) {
+  if (!token || !verifySessionToken(token)) {
     return res.status(401).json({ error: "Unauthorized" });
   }
   next();
@@ -135,18 +161,13 @@ router.post("/login", loginLimiter, (req: any, res: any) => {
   const { pin } = req.body;
   const accessCode = process.env.STUDIO_ACCESS_CODE || "visca61331";
   if (pin === accessCode) {
-    const token = crypto.randomBytes(32).toString("hex");
-    activeSessions.add(token);
+    const token = generateSessionToken();
+    const isProd = process.env.NODE_ENV === "production" || process.env.VERCEL;
     
-    // Auto logout after 30 mins
-    setTimeout(() => {
-      activeSessions.delete(token);
-    }, 30 * 60 * 1000);
-
     res.cookie("admin_session", token, {
       httpOnly: true,
-      secure: true,
-      sameSite: "none",
+      secure: !!isProd,
+      sameSite: isProd ? "none" : "lax",
       maxAge: 30 * 60 * 1000 // 30 mins
     });
     
@@ -158,15 +179,12 @@ router.post("/login", loginLimiter, (req: any, res: any) => {
 
 // Admin logout
 router.post("/logout", (req: any, res: any) => {
-  const token = req.cookies.admin_session;
-  if (token) {
-    activeSessions.delete(token);
-    res.clearCookie("admin_session", {
-      httpOnly: true,
-      secure: true,
-      sameSite: "none"
-    });
-  }
+  const isProd = process.env.NODE_ENV === "production" || process.env.VERCEL;
+  res.clearCookie("admin_session", {
+    httpOnly: true,
+    secure: !!isProd,
+    sameSite: isProd ? "none" : "lax"
+  });
   res.status(200).json({ success: true });
 });
 

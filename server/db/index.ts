@@ -34,13 +34,13 @@ function parseSQLCondition(cond: any) {
     if (arrayChunk) {
       value = arrayChunk.map((p: any) => p && p.value !== undefined ? p.value : p);
     } else {
-      const paramChunk = chunks.find((c: any) => c && typeof c === 'object' && c.value !== undefined);
+      const paramChunk = chunks.find((c: any) => c && typeof c === 'object' && c.value !== undefined && !Array.isArray(c.value));
       if (paramChunk) {
         value = Array.isArray(paramChunk.value) ? paramChunk.value : [paramChunk.value];
       }
     }
   } else {
-    const paramChunk = chunks.find((c: any) => c && typeof c === 'object' && c.value !== undefined && c.constructor && c.constructor.name === 'Param');
+    const paramChunk = chunks.find((c: any) => c && typeof c === 'object' && c.value !== undefined && !Array.isArray(c.value) && !c.columnType && !c.queryChunks);
     if (paramChunk) {
       value = paramChunk.value;
     }
@@ -223,29 +223,26 @@ class JsonDatabase {
 let db: any;
 let isJsonDb = false;
 
-try {
-  const Database = require('better-sqlite3');
-  const { drizzle } = require('drizzle-orm/better-sqlite3');
-  
-  let dbPath = path.join(process.cwd(), 'sqlite.db');
-
-  if (process.env.VERCEL) {
-    const tmpPath = path.join('/tmp', 'sqlite.db');
-    if (!fs.existsSync(tmpPath)) {
-      if (fs.existsSync(dbPath)) {
-        fs.copyFileSync(dbPath, tmpPath);
-      }
-    }
-    dbPath = tmpPath;
-  }
-
-  const sqlite = new Database(dbPath);
-  db = drizzle(sqlite, { schema });
-  console.log('Initialized drizzle with better-sqlite3 successfully');
-} catch (err: any) {
-  console.log('Failed to load better-sqlite3, falling back to JsonDatabase:', err.message);
+if (process.env.VERCEL) {
+  console.log('Running on Vercel: Using JsonDatabase fallback directly to avoid native better-sqlite3 issues');
   db = new JsonDatabase();
   isJsonDb = true;
+} else {
+  try {
+    const sqlitePackage = 'better' + '-sqlite3';
+    const Database = require(sqlitePackage);
+    const drizzlePackage = 'drizzle-orm/better' + '-sqlite3';
+    const { drizzle } = require(drizzlePackage);
+    
+    const dbPath = path.join(process.cwd(), 'sqlite.db');
+    const sqlite = new Database(dbPath);
+    db = drizzle(sqlite, { schema });
+    console.log('Initialized drizzle with better-sqlite3 successfully');
+  } catch (err: any) {
+    console.log('Failed to load better-sqlite3, falling back to JsonDatabase:', err.message);
+    db = new JsonDatabase();
+    isJsonDb = true;
+  }
 }
 
 export { db, isJsonDb };
