@@ -232,7 +232,7 @@ if (process.env.VERCEL) {
     if (typeof require !== 'undefined') {
       req = require;
     } else {
-      req = createRequire(eval('import.meta.url'));
+      req = createRequire(import.meta.url);
     }
     
     const sqlitePackage = 'better' + '-sqlite3';
