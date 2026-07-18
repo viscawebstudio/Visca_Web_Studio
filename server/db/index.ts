@@ -1,4 +1,4 @@
-import * as schema from './schema';
+import * as schema from './schema.js';
 import path from 'path';
 import fs from 'fs';
 import { createRequire } from 'module';

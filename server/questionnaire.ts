@@ -3,8 +3,8 @@ import rateLimit from "express-rate-limit";
 import xss from "xss";
 import crypto from "crypto";
 import cookieParser from "cookie-parser";
-import { db } from './db/index';
-import { submissions } from './db/schema';
+import { db } from './db/index.js';
+import { submissions } from './db/schema.js';
 import { inArray, eq } from 'drizzle-orm';
 
 const router = Router();
