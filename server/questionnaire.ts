@@ -3,9 +3,41 @@ import rateLimit from "express-rate-limit";
 import xss from "xss";
 import crypto from "crypto";
 import cookieParser from "cookie-parser";
-import { db } from './db/index.js';
-import { submissions } from './db/schema.js';
-import { inArray, eq } from 'drizzle-orm';
+import fs from 'fs';
+import path from 'path';
+
+import { initializeApp, applicationDefault } from 'firebase-admin/app';
+import { getFirestore, FieldValue } from 'firebase-admin/firestore';
+
+// Read config
+const configPath = path.join(process.cwd(), 'firebase-applet-config.json');
+let firestoreDbId = '(default)';
+let projectId = 'gen-lang-client-0355320903';
+
+if (fs.existsSync(configPath)) {
+  try {
+    const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+    if (config.firestoreDatabaseId) firestoreDbId = config.firestoreDatabaseId;
+    if (config.projectId) projectId = config.projectId;
+  } catch (e) {
+    console.error('Error reading firebase config', e);
+  }
+}
+
+let firestore: any;
+try {
+  const firebaseApp = initializeApp({
+    credential: applicationDefault(),
+    projectId: process.env.FIREBASE_PROJECT_ID || projectId
+  });
+
+  firestore = getFirestore(firebaseApp);
+  firestore.settings({ databaseId: firestoreDbId });
+} catch (err) {
+  console.error("Firebase admin init error", err);
+}
+
+const submissionsRef = firestore.collection('submissions');
 
 const router = Router();
 
@@ -101,7 +133,7 @@ router.post("/submit", submitLimiter, async (req: any, res: any) => {
     const id = Date.now().toString() + Math.random().toString(36).substring(2, 7);
     const submittedAt = new Date().toISOString();
 
-    await db.insert(submissions).values({
+    const record = {
       id: id,
       business_name: sanitizedData.business_name || '',
       contact_person: sanitizedData.contact_person || '',
@@ -146,8 +178,12 @@ router.post("/submit", submitLimiter, async (req: any, res: any) => {
       domain_hosting_help: sanitizedData.domain_hosting_help || '',
       brand_logo: sanitizedData.brand_logo || '',
       brand_guidelines: sanitizedData.brand_guidelines || '',
-      submittedAt: submittedAt
-    });
+      submittedAt: submittedAt,
+      is_read: false,
+      share_enabled: true
+    };
+
+    await submissionsRef.doc(id).set(record);
 
     res.status(200).json({ success: true, id: id });
   } catch (error: any) {
@@ -195,7 +231,10 @@ router.get("/responses", requireAuth, async (req: any, res: any) => {
     res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
     res.setHeader("Pragma", "no-cache");
     res.setHeader("Expires", "0");
-    const allResponses = await db.select().from(submissions);
+    
+    const snapshot = await submissionsRef.get();
+    const allResponses = snapshot.docs.map((doc: any) => doc.data());
+    
     res.status(200).json(allResponses);
   } catch (error) {
     console.error("Fetch responses error:", error);
@@ -210,7 +249,7 @@ router.post("/responses/toggle-read", requireAuth, async (req: any, res: any) =>
     return res.status(400).json({ error: "Invalid format" });
   }
   try {
-    await db.update(submissions).set({ is_read }).where(eq(submissions.id, id));
+    await submissionsRef.doc(id).update({ is_read });
     res.status(200).json({ success: true });
   } catch (error) {
     console.error("Toggle read error:", error);
@@ -227,7 +266,11 @@ router.post("/responses/delete", requireAuth, async (req: any, res: any) => {
   
   try {
     if (ids.length > 0) {
-      await db.delete(submissions).where(inArray(submissions.id, ids.map(String)));
+      const batch = firestore.batch();
+      for (const id of ids) {
+        batch.delete(submissionsRef.doc(String(id)));
+      }
+      await batch.commit();
     }
     res.status(200).json({ success: true });
   } catch (error) {
@@ -241,9 +284,9 @@ router.post("/responses/delete", requireAuth, async (req: any, res: any) => {
 router.post("/responses/share", requireAuth, async (req: any, res: any) => {
   const { id } = req.body;
   try {
-    const row = await db.select().from(submissions).where(eq(submissions.id, id)).limit(1);
-    if (row.length === 0) return res.status(404).json({ error: "Not found" });
-    const sub = row[0];
+    const doc = await submissionsRef.doc(id).get();
+    if (!doc.exists) return res.status(404).json({ error: "Not found" });
+    const sub = doc.data();
     let token = sub.share_token;
     
     // Always reset expiration to 30 days from now
@@ -255,11 +298,11 @@ router.post("/responses/share", requireAuth, async (req: any, res: any) => {
       token = crypto.randomBytes(16).toString("hex");
     }
 
-    await db.update(submissions).set({ 
+    await submissionsRef.doc(id).update({ 
       share_token: token, 
       share_expires_at: expiresAtStr, 
       share_enabled: true 
-    }).where(eq(submissions.id, id));
+    });
 
     res.status(200).json({ success: true, token, expiresAt: expiresAtStr });
   } catch (error) {
@@ -272,7 +315,7 @@ router.post("/responses/share", requireAuth, async (req: any, res: any) => {
 router.post("/responses/share/disable", requireAuth, async (req: any, res: any) => {
   const { id } = req.body;
   try {
-    await db.update(submissions).set({ share_enabled: false }).where(eq(submissions.id, id));
+    await submissionsRef.doc(id).update({ share_enabled: false });
     res.status(200).json({ success: true });
   } catch (error) {
     console.error(error);
@@ -287,9 +330,11 @@ router.get("/shared/:token", async (req: any, res: any) => {
     res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
     res.setHeader("Pragma", "no-cache");
     res.setHeader("Expires", "0");
-    const row = await db.select().from(submissions).where(eq(submissions.share_token, token)).limit(1);
-    if (row.length === 0) return res.status(404).json({ error: "Not found" });
-    const sub = row[0];
+    
+    const snapshot = await submissionsRef.where('share_token', '==', token).limit(1).get();
+    
+    if (snapshot.empty) return res.status(404).json({ error: "Not found" });
+    const sub = snapshot.docs[0].data();
     
     if (!sub.share_enabled) {
       return res.status(403).json({ error: "Link disabled" });
