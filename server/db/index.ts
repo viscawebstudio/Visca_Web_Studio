@@ -1,9 +1,7 @@
-import * as schema from './schema.ts';
+import * as schema from './schema';
 import path from 'path';
 import fs from 'fs';
 import { createRequire } from 'module';
-
-const require = createRequire(import.meta.url);
 
 // Parse conditions from Drizzle EQ/InArray
 function parseSQLCondition(cond: any) {
@@ -229,10 +227,18 @@ if (process.env.VERCEL) {
   isJsonDb = true;
 } else {
   try {
+    // Hide import.meta.url from CJS bundlers to prevent crashes during Vercel builds
+    let req;
+    if (typeof require !== 'undefined') {
+      req = require;
+    } else {
+      req = createRequire(eval('import.meta.url'));
+    }
+    
     const sqlitePackage = 'better' + '-sqlite3';
-    const Database = require(sqlitePackage);
+    const Database = req(sqlitePackage);
     const drizzlePackage = 'drizzle-orm/better' + '-sqlite3';
-    const { drizzle } = require(drizzlePackage);
+    const { drizzle } = req(drizzlePackage);
     
     const dbPath = path.join(process.cwd(), 'sqlite.db');
     const sqlite = new Database(dbPath);

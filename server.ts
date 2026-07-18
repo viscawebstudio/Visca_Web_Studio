@@ -51,6 +51,12 @@ app.use(express.json({ limit: "1mb" })); // Request size limits
 // API Routes
 app.use("/api/questionnaire", questionnaireRouter);
 
+// Global Error Handler for API routes
+app.use("/api", (err: any, req: any, res: any, next: any) => {
+  console.error("API Error:", err);
+  res.status(500).json({ error: "Internal server error", details: err.message });
+});
+
 export { app };
 export default app;
 
