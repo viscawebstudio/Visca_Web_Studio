@@ -9,17 +9,14 @@ export const handleEmailClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
 
   const email = "viscawebstudio@gmail.com";
   const mailtoUrl = `mailto:${email}`;
-  const gmailUrl = `https://mail.google.com/mail/?view=cm&to=${email}`;
+  const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
 
-  window.location.href = mailtoUrl;
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                   (navigator.maxTouchPoints > 0);
 
-  setTimeout(() => {
-    if (document.hasFocus && document.hasFocus()) {
-      try {
-        window.open(gmailUrl, '_blank', 'noopener,noreferrer');
-      } catch (error) {
-        console.error("Fallback to Gmail web failed", error);
-      }
-    }
-  }, 1000);
+  if (isMobile) {
+    window.location.href = mailtoUrl;
+  } else {
+    window.location.href = gmailUrl;
+  }
 };

@@ -85,7 +85,7 @@ export default function Terms() {
           <section>
             <h2 className="text-2xl font-bold text-[#020b24] mb-4">Contact Information</h2>
             <p className="text-slate-600">
-              If you have any questions about these Terms, please contact us at <a href="mailto:viscawebstudio@gmail.com" target="_blank" rel="noopener noreferrer" onClick={handleEmailClick} className="text-blue-600 hover:underline">viscawebstudio@gmail.com</a>.
+              If you have any questions about these Terms, please contact us at <a href="mailto:viscawebstudio@gmail.com" onClick={handleEmailClick} className="text-blue-600 hover:underline">viscawebstudio@gmail.com</a>.
             </p>
           </section>
         </div>

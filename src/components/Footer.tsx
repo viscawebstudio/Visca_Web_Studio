@@ -63,9 +63,9 @@ export default function Footer() {
             <ul className="space-y-4">
               <li><Link to="/client-questionnaire" className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer">Client Questionnaire</Link></li>
               <li><a href="#contact" onClick={(e) => scrollToSection(e, 'contact')} className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer">Contact</a></li>
-              <li><a href="https://instagram.com/viscawebstudio" target="_blank" rel="noopener noreferrer" className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer">@viscawebstudio</a></li>
+              <li><a href="https://www.instagram.com/viscawebstudio/" target="_blank" rel="noopener noreferrer" className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer">@viscawebstudio</a></li>
               <li><a href="https://wa.me/919446054420" target="_blank" rel="noopener noreferrer" className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer">+91 9446054420</a></li>
-              <li><a href="mailto:viscawebstudio@gmail.com" target="_blank" rel="noopener noreferrer" onClick={handleEmailClick} className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer">viscawebstudio@gmail.com</a></li>
+              <li><a href="mailto:viscawebstudio@gmail.com" onClick={handleEmailClick} className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer">viscawebstudio@gmail.com</a></li>
             </ul>
           </div>
         </div>
