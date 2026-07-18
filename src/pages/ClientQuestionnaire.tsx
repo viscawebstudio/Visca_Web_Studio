@@ -206,7 +206,7 @@ export default function ClientQuestionnaire() {
 
   const fetchResponses = async () => {
     try {
-      const res = await fetch('/api/questionnaire/responses');
+      const res = await fetch(`/api/questionnaire/responses?t=${Date.now()}`);
       if (res.ok) {
         const data = await res.json();
         data.sort((a: any, b: any) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime());
@@ -229,6 +229,7 @@ export default function ClientQuestionnaire() {
         body: JSON.stringify({ ids: deleteModal.ids })
       });
       if (res.ok) {
+        setResponses(prev => prev.filter(r => !deleteModal.ids.includes(String(r.id))));
         setDeleteModal({ isOpen: false, ids: [] });
         setSelectedRows(new Set());
         fetchResponses();
@@ -1074,7 +1075,6 @@ export default function ClientQuestionnaire() {
                   <Download size={16} /> Export CSV
                 </button>
                 <button type="button" onClick={deleteSelected} className="btn btn-outline" style={{ color: 'var(--error)', borderColor: 'var(--error)' }}>Delete Selected</button>
-                <button type="button" onClick={fetchResponses} className="btn btn-outline">Refresh</button>
               </div>
             </div>
 

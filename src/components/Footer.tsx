@@ -2,7 +2,6 @@ import React from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import BrandLogo from "./BrandLogo";
 import footerLogo from "../assets/images/regenerated_image_1783781365216.jpg";
-import { handleEmailClick } from '../utils/emailHandler';
 
 export default function Footer() {
   const navigate = useNavigate();
@@ -65,7 +64,7 @@ export default function Footer() {
               <li><a href="#contact" onClick={(e) => scrollToSection(e, 'contact')} className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer">Contact</a></li>
               <li><a href="https://www.instagram.com/viscawebstudio/" target="_blank" rel="noopener noreferrer" className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer">@viscawebstudio</a></li>
               <li><a href="https://wa.me/919446054420" target="_blank" rel="noopener noreferrer" className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer">+91 9446054420</a></li>
-              <li><a href="mailto:viscawebstudio@gmail.com" onClick={handleEmailClick} className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer">viscawebstudio@gmail.com</a></li>
+              <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=viscawebstudio@gmail.com" target="_blank" rel="noopener noreferrer" className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer">viscawebstudio@gmail.com</a></li>
             </ul>
           </div>
         </div>

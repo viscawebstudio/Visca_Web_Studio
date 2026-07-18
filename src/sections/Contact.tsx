@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { ArrowRight, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import emailjs from '@emailjs/browser';
-import { handleEmailClick } from '../utils/emailHandler';
 
 export default function Contact() {
   const [name, setName] = useState("");
@@ -131,7 +130,7 @@ export default function Contact() {
               <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors pointer-events-none" />
             </a>
             
-            <a href="mailto:viscawebstudio@gmail.com" onClick={handleEmailClick} className="flex items-center justify-between p-5 rounded-2xl border border-blue-900/50 bg-[#05143a]/50 hover:bg-[#071a4a] transition-colors group">
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=viscawebstudio@gmail.com" target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-5 rounded-2xl border border-blue-900/50 bg-[#05143a]/50 hover:bg-[#071a4a] transition-colors group">
               <div className="pointer-events-none">
                 <div className="text-[10px] font-bold tracking-widest text-blue-300 uppercase mb-1">EMAIL</div>
                 <div className="text-sm font-medium text-white">viscawebstudio@gmail.com</div>
