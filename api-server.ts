@@ -17,6 +17,9 @@ app.use(compression());
 // Security Headers
 app.use(helmet({
   xFrameOptions: false, // Prevent breaking AI Studio iframe preview
+  crossOriginOpenerPolicy: { policy: "same-origin-allow-popups" },
+  crossOriginResourcePolicy: { policy: "cross-origin" },
+  originAgentCluster: true,
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
@@ -43,6 +46,8 @@ app.use(helmet({
 // Custom Permissions-Policy Header
 app.use((req, res, next) => {
   res.setHeader("Permissions-Policy", "geolocation=(), camera=(), microphone=(), payment=()");
+  res.setHeader("X-Download-Options", "noopen");
+  res.setHeader("X-Permitted-Cross-Domain-Policies", "none");
   next();
 });
 
@@ -54,7 +59,8 @@ app.use("/api/questionnaire", questionnaireRouter);
 // Global Error Handler for API routes
 app.use("/api", (err: any, req: any, res: any, next: any) => {
   console.error("API Error:", err);
-  res.status(500).json({ error: "Internal server error", details: err.message });
+  const isProd = process.env.NODE_ENV === "production" || process.env.VERCEL;
+  res.status(500).json({ error: "Internal server error", details: isProd ? undefined : err.message });
 });
 
 export { app };

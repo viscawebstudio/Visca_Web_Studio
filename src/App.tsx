@@ -3,10 +3,12 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./sections/Hero";
 import Footer from "./components/Footer";
-import Privacy from "./pages/Privacy";
-import Terms from "./pages/Terms";
-import ClientQuestionnaire from "./pages/ClientQuestionnaire";
-import SharedResponse from "./pages/SharedResponse";
+
+// Lazy loaded pages
+const Privacy = lazy(() => import("./pages/Privacy"));
+const Terms = lazy(() => import("./pages/Terms"));
+const ClientQuestionnaire = lazy(() => import("./pages/ClientQuestionnaire"));
+const SharedResponse = lazy(() => import("./pages/SharedResponse"));
 
 // Lazy loaded sections
 const Services = lazy(() => import("./sections/Services"));
@@ -22,6 +24,14 @@ function SectionLoader() {
   return (
     <div className="w-full min-h-[400px] flex items-center justify-center bg-white py-24" aria-hidden="true">
       <div className="w-8 h-8 rounded-full border-2 border-blue-500/10 border-t-blue-500 animate-spin" />
+    </div>
+  );
+}
+
+function PageLoader() {
+  return (
+    <div className="w-full min-h-screen flex items-center justify-center bg-white" aria-hidden="true">
+      <div className="w-12 h-12 rounded-full border-4 border-blue-500/10 border-t-blue-500 animate-spin" />
     </div>
   );
 }
@@ -92,13 +102,15 @@ export default function App() {
     <div className="min-h-screen bg-white text-gray-900 font-sans antialiased relative overflow-x-hidden selection:bg-blue-500/30 selection:text-blue-900">
       <Navbar />
       <main className="relative z-10">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/client-questionnaire" element={<ClientQuestionnaire />} />
-          <Route path="/shared/:token" element={<SharedResponse />} />
-        </Routes>
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/client-questionnaire" element={<ClientQuestionnaire />} />
+            <Route path="/shared/:token" element={<SharedResponse />} />
+          </Routes>
+        </Suspense>
       </main>
       <Footer />
     </div>

@@ -152,7 +152,8 @@ router.post("/submit", submitLimiter, async (req: any, res: any) => {
     res.status(200).json({ success: true, id: id });
   } catch (error: any) {
     console.error("Submission error:", error.stack || error);
-    res.status(500).json({ error: "Internal server error", details: error.message });
+    const isProd = process.env.NODE_ENV === "production" || process.env.VERCEL;
+    res.status(500).json({ error: "Internal server error", details: isProd ? undefined : error.message });
   }
 });
 
