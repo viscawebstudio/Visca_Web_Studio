@@ -3,26 +3,9 @@ import rateLimit from "express-rate-limit";
 import xss from "xss";
 import crypto from "crypto";
 import cookieParser from "cookie-parser";
-import fs from 'fs';
-import path from 'path';
 
 import { initializeApp, getApps, getApp, cert } from 'firebase-admin/app';
 import { getFirestore, FieldValue } from 'firebase-admin/firestore';
-
-// Read config
-const configPath = path.join(process.cwd(), 'firebase-applet-config.json');
-let firestoreDbId = '(default)';
-let configProjectId = 'gen-lang-client-0355320903';
-
-if (fs.existsSync(configPath)) {
-  try {
-    const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-    if (config.firestoreDatabaseId) firestoreDbId = config.firestoreDatabaseId;
-    if (config.projectId) configProjectId = config.projectId;
-  } catch (e) {
-    console.error('Error reading firebase config', e);
-  }
-}
 
 let _firestore: any = null;
 let _submissionsRef: any = null;
@@ -30,9 +13,10 @@ let _submissionsRef: any = null;
 function getSubmissionsRef() {
   if (_submissionsRef) return _submissionsRef;
 
-  const projectId = process.env.FIREBASE_PROJECT_ID || configProjectId;
+  const projectId = process.env.FIREBASE_PROJECT_ID || 'gen-lang-client-0355320903';
   const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
   const privateKey = process.env.FIREBASE_PRIVATE_KEY;
+  const databaseId = process.env.FIREBASE_DATABASE_ID || '(default)';
 
   if (!projectId || !clientEmail || !privateKey) {
     throw new Error("Missing required Firebase environment variables (FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, FIREBASE_PRIVATE_KEY)");
@@ -53,7 +37,7 @@ function getSubmissionsRef() {
   }
 
   _firestore = getFirestore(firebaseApp);
-  _firestore.settings({ databaseId: firestoreDbId });
+  _firestore.settings({ databaseId });
   _submissionsRef = _firestore.collection('submissions');
 
   return _submissionsRef;
