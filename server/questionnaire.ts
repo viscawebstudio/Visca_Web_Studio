@@ -36,8 +36,7 @@ function getSubmissionsRef() {
     firebaseApp = getApp();
   }
 
-  _firestore = getFirestore(firebaseApp);
-  _firestore.settings({ databaseId });
+  _firestore = getFirestore(firebaseApp, databaseId);
   _submissionsRef = _firestore.collection('submissions');
 
   return _submissionsRef;
