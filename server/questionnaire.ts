@@ -6,38 +6,63 @@ import cookieParser from "cookie-parser";
 import fs from 'fs';
 import path from 'path';
 
-import { initializeApp, applicationDefault } from 'firebase-admin/app';
+import { initializeApp, getApps, getApp, cert } from 'firebase-admin/app';
 import { getFirestore, FieldValue } from 'firebase-admin/firestore';
 
 // Read config
 const configPath = path.join(process.cwd(), 'firebase-applet-config.json');
 let firestoreDbId = '(default)';
-let projectId = 'gen-lang-client-0355320903';
+let configProjectId = 'gen-lang-client-0355320903';
 
 if (fs.existsSync(configPath)) {
   try {
     const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
     if (config.firestoreDatabaseId) firestoreDbId = config.firestoreDatabaseId;
-    if (config.projectId) projectId = config.projectId;
+    if (config.projectId) configProjectId = config.projectId;
   } catch (e) {
     console.error('Error reading firebase config', e);
   }
 }
 
-let firestore: any;
-try {
-  const firebaseApp = initializeApp({
-    credential: applicationDefault(),
-    projectId: process.env.FIREBASE_PROJECT_ID || projectId
-  });
+let _firestore: any = null;
+let _submissionsRef: any = null;
 
-  firestore = getFirestore(firebaseApp);
-  firestore.settings({ databaseId: firestoreDbId });
-} catch (err) {
-  console.error("Firebase admin init error", err);
+function getSubmissionsRef() {
+  if (_submissionsRef) return _submissionsRef;
+
+  const projectId = process.env.FIREBASE_PROJECT_ID || configProjectId;
+  const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
+  const privateKey = process.env.FIREBASE_PRIVATE_KEY;
+
+  if (!projectId || !clientEmail || !privateKey) {
+    throw new Error("Missing required Firebase environment variables (FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, FIREBASE_PRIVATE_KEY)");
+  }
+
+  let firebaseApp;
+  if (getApps().length === 0) {
+    firebaseApp = initializeApp({
+      credential: cert({
+        projectId,
+        clientEmail,
+        privateKey: privateKey.replace(/\\n/g, "\n"),
+      }),
+      projectId,
+    });
+  } else {
+    firebaseApp = getApp();
+  }
+
+  _firestore = getFirestore(firebaseApp);
+  _firestore.settings({ databaseId: firestoreDbId });
+  _submissionsRef = _firestore.collection('submissions');
+
+  return _submissionsRef;
 }
 
-const submissionsRef = firestore.collection('submissions');
+function getFirestoreDb() {
+  if (!_firestore) getSubmissionsRef();
+  return _firestore;
+}
 
 const router = Router();
 
@@ -183,7 +208,8 @@ router.post("/submit", submitLimiter, async (req: any, res: any) => {
       share_enabled: true
     };
 
-    await submissionsRef.doc(id).set(record);
+    const ref = getSubmissionsRef();
+    await ref.doc(id).set(record);
 
     res.status(200).json({ success: true, id: id });
   } catch (error: any) {
@@ -232,7 +258,7 @@ router.get("/responses", requireAuth, async (req: any, res: any) => {
     res.setHeader("Pragma", "no-cache");
     res.setHeader("Expires", "0");
     
-    const snapshot = await submissionsRef.get();
+    const snapshot = await getSubmissionsRef().get();
     const allResponses = snapshot.docs.map((doc: any) => doc.data());
     
     res.status(200).json(allResponses);
@@ -249,7 +275,7 @@ router.post("/responses/toggle-read", requireAuth, async (req: any, res: any) =>
     return res.status(400).json({ error: "Invalid format" });
   }
   try {
-    await submissionsRef.doc(id).update({ is_read });
+    await getSubmissionsRef().doc(id).update({ is_read });
     res.status(200).json({ success: true });
   } catch (error) {
     console.error("Toggle read error:", error);
@@ -266,9 +292,10 @@ router.post("/responses/delete", requireAuth, async (req: any, res: any) => {
   
   try {
     if (ids.length > 0) {
-      const batch = firestore.batch();
+      const db = getFirestoreDb();
+      const batch = db.batch();
       for (const id of ids) {
-        batch.delete(submissionsRef.doc(String(id)));
+        batch.delete(getSubmissionsRef().doc(String(id)));
       }
       await batch.commit();
     }
@@ -284,7 +311,7 @@ router.post("/responses/delete", requireAuth, async (req: any, res: any) => {
 router.post("/responses/share", requireAuth, async (req: any, res: any) => {
   const { id } = req.body;
   try {
-    const doc = await submissionsRef.doc(id).get();
+    const doc = await getSubmissionsRef().doc(id).get();
     if (!doc.exists) return res.status(404).json({ error: "Not found" });
     const sub = doc.data();
     let token = sub.share_token;
@@ -298,7 +325,7 @@ router.post("/responses/share", requireAuth, async (req: any, res: any) => {
       token = crypto.randomBytes(16).toString("hex");
     }
 
-    await submissionsRef.doc(id).update({ 
+    await getSubmissionsRef().doc(id).update({ 
       share_token: token, 
       share_expires_at: expiresAtStr, 
       share_enabled: true 
@@ -315,7 +342,7 @@ router.post("/responses/share", requireAuth, async (req: any, res: any) => {
 router.post("/responses/share/disable", requireAuth, async (req: any, res: any) => {
   const { id } = req.body;
   try {
-    await submissionsRef.doc(id).update({ share_enabled: false });
+    await getSubmissionsRef().doc(id).update({ share_enabled: false });
     res.status(200).json({ success: true });
   } catch (error) {
     console.error(error);
@@ -331,7 +358,7 @@ router.get("/shared/:token", async (req: any, res: any) => {
     res.setHeader("Pragma", "no-cache");
     res.setHeader("Expires", "0");
     
-    const snapshot = await submissionsRef.where('share_token', '==', token).limit(1).get();
+    const snapshot = await getSubmissionsRef().where('share_token', '==', token).limit(1).get();
     
     if (snapshot.empty) return res.status(404).json({ error: "Not found" });
     const sub = snapshot.docs[0].data();
