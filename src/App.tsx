@@ -26,14 +26,34 @@ export default function App() {
 
   useEffect(() => {
     let title = "Visca Web Studio | Premium Website Design & Development";
+    let description = "Visca Web Studio creates modern, high-performance websites for businesses, startups, restaurants, gyms, clinics, salons, and more. Fast, responsive, and built to grow your business.";
+    
     if (pathname === "/privacy") {
       title = "Privacy Policy | Visca Web Studio";
+      description = "Privacy Policy for Visca Web Studio. Read about how we collect, use, and protect your personal information.";
     } else if (pathname === "/terms") {
       title = "Terms & Conditions | Visca Web Studio";
+      description = "Terms and Conditions for Visca Web Studio. Read the rules, guidelines, and agreements for using our services.";
     } else if (pathname === "/client-questionnaire") {
       title = "Client Questionnaire | Visca Web Studio";
+      description = "Complete the Visca Web Studio client questionnaire to help us understand your website project requirements.";
     }
+    
     document.title = title;
+    const metaDesc = document.querySelector("meta[name='description']");
+    if (metaDesc) metaDesc.setAttribute("content", description);
+    
+    const ogDesc = document.querySelector("meta[property='og:description']");
+    if (ogDesc) ogDesc.setAttribute("content", description);
+    
+    const ogTitle = document.querySelector("meta[property='og:title']");
+    if (ogTitle) ogTitle.setAttribute("content", title);
+    
+    const twitterTitle = document.querySelector("meta[name='twitter:title']");
+    if (twitterTitle) twitterTitle.setAttribute("content", title);
+    
+    const twitterDesc = document.querySelector("meta[name='twitter:description']");
+    if (twitterDesc) twitterDesc.setAttribute("content", description);
 
     // Update canonical link
     let canonicalLink = document.querySelector("link[rel='canonical']");
