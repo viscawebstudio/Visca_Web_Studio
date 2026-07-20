@@ -128,6 +128,7 @@ export default function Hero() {
 
       <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center text-center">
         <h1 className="text-5xl md:text-7xl lg:text-[96px] font-bold leading-[1.05] tracking-tight mb-8 text-white font-sans">
+          <span className="sr-only">Visca Web Studio</span>
           <div className="overflow-hidden pb-2">
             <div className="hero-title-line">Crafting digital</div>
           </div>

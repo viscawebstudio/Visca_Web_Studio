@@ -98,6 +98,7 @@ export default function App() {
             "@id": `${siteUrl}/#website`,
             "url": `${siteUrl}`,
             "name": "Visca Web Studio",
+            "alternateName": "VISCA Web Studio",
             "publisher": {
               "@id": `${siteUrl}/#organization`
             }
