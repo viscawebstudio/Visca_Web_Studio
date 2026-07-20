@@ -67,6 +67,68 @@ export default function App() {
       : "https://viscawebstudio.com";
     canonicalLink.setAttribute("href", `${siteUrl}${pathname}`);
 
+    // Manage JSON-LD Schema only for homepage
+    const existingSchema = document.getElementById("structured-data");
+    if (existingSchema) {
+      existingSchema.remove();
+    }
+    
+    if (pathname === "/") {
+      const script = document.createElement("script");
+      script.id = "structured-data";
+      script.type = "application/ld+json";
+      script.text = JSON.stringify({
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": `${siteUrl}/#organization`,
+            "name": "Visca Web Studio",
+            "url": `${siteUrl}`,
+            "logo": `${siteUrl}/android-chrome-512x512.png`,
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+919446054420",
+              "email": "viscawebstudio@gmail.com",
+              "contactType": "customer service"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": `${siteUrl}/#website`,
+            "url": `${siteUrl}`,
+            "name": "Visca Web Studio",
+            "publisher": {
+              "@id": `${siteUrl}/#organization`
+            }
+          },
+          {
+            "@type": "WebPage",
+            "@id": `${siteUrl}/#webpage`,
+            "url": `${siteUrl}`,
+            "name": "Visca Web Studio | Premium Website Design & Development",
+            "isPartOf": {
+              "@id": `${siteUrl}/#website`
+            },
+            "about": {
+              "@id": `${siteUrl}/#organization`
+            }
+          },
+          {
+            "@type": "LocalBusiness",
+            "@id": `${siteUrl}/#localbusiness`,
+            "name": "Visca Web Studio",
+            "description": "Visca Web Studio creates modern, high-performance websites for businesses, startups, restaurants, gyms, clinics, salons, and more. Fast, responsive, and built to grow your business.",
+            "url": `${siteUrl}`,
+            "telephone": "+919446054420",
+            "email": "viscawebstudio@gmail.com",
+            "image": `${siteUrl}/social-preview.png`
+          }
+        ]
+      });
+      document.head.appendChild(script);
+    }
+
     if (hash) {
       const id = hash.replace("#", "");
       setTimeout(() => {
