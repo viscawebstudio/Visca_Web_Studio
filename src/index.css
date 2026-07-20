@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -30,7 +29,8 @@
 }
 
 @keyframes float-slow-key {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px) rotate(-12deg);
   }
   50% {
@@ -39,7 +39,8 @@
 }
 
 @keyframes float-medium-key {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px) rotate(6deg);
   }
   50% {
@@ -48,7 +49,8 @@
 }
 
 @keyframes float-fast-key {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px) rotate(-4deg);
   }
   50% {
@@ -83,8 +85,8 @@
   animation: ripple-key 0.6s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
 }
 
-
-html, body {
+html,
+body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;

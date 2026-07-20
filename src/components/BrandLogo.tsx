@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface BrandLogoProps {
   className?: string;
@@ -7,21 +7,21 @@ interface BrandLogoProps {
   src?: string;
 }
 
-export default function BrandLogo({ 
-  className = "", 
+export default function BrandLogo({
+  className = "",
   onClick,
   alignItems = "items-center",
-  src
+  src,
 }: BrandLogoProps) {
   return (
     <div
       onClick={onClick}
-      className={`flex flex-row items-center gap-3 cursor-pointer group ${className}`}
+      className={`flex flex-row ${alignItems} gap-3 cursor-pointer group ${className}`}
     >
       {src && (
-        <img 
-          src={src} 
-          alt="Visca Web Studio Logo" 
+        <img
+          src={src}
+          alt="Visca Web Studio Logo"
           className="h-12 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
         />
       )}

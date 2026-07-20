@@ -10,31 +10,70 @@
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://viscawebstudio.com" />
+    <meta property="og:url" content="__SITE_URL__" />
     <meta property="og:title" content="Visca Web Studio | Premium Website Design & Development" />
     <meta property="og:description" content="Visca Web Studio creates modern, high-performance websites for businesses, startups, restaurants, gyms, clinics, salons, and more. Fast, responsive, and built to grow your business." />
-    <meta property="og:image" content="https://viscawebstudio.vercel.app/social-preview.png" />
+    <meta property="og:image" content="__SITE_URL__/social-preview.png" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://viscawebstudio.com" />
+    <meta name="twitter:url" content="__SITE_URL__" />
     <meta name="twitter:title" content="Visca Web Studio | Premium Website Design & Development" />
     <meta name="twitter:description" content="Visca Web Studio creates modern, high-performance websites for businesses, startups, restaurants, gyms, clinics, salons, and more. Fast, responsive, and built to grow your business." />
-    <meta name="twitter:image" content="https://viscawebstudio.vercel.app/social-preview.png" />
+    <meta name="twitter:image" content="__SITE_URL__/social-preview.png" />
     
-    <link rel="canonical" href="https://viscawebstudio.com/" />
+    <link rel="canonical" href="__SITE_URL__/" />
 
     <!-- JSON-LD Schema -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Visca Web Studio",
-      "description": "Visca Web Studio creates modern, high-performance websites for businesses, startups, restaurants, gyms, clinics, salons, and more. Fast, responsive, and built to grow your business.",
-      "url": "https://viscawebstudio.com",
-      "telephone": "+919446054420",
-      "email": "viscawebstudio@gmail.com",
-      "image": "https://viscawebstudio.vercel.app/social-preview.png"
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "__SITE_URL__/#organization",
+          "name": "Visca Web Studio",
+          "url": "__SITE_URL__",
+          "logo": "__SITE_URL__/social-preview.png",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+919446054420",
+            "email": "viscawebstudio@gmail.com",
+            "contactType": "customer service"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "__SITE_URL__/#website",
+          "url": "__SITE_URL__",
+          "name": "Visca Web Studio",
+          "publisher": {
+            "@id": "__SITE_URL__/#organization"
+          }
+        },
+        {
+          "@type": "WebPage",
+          "@id": "__SITE_URL__/#webpage",
+          "url": "__SITE_URL__",
+          "name": "Visca Web Studio | Premium Website Design & Development",
+          "isPartOf": {
+            "@id": "__SITE_URL__/#website"
+          },
+          "about": {
+            "@id": "__SITE_URL__/#organization"
+          }
+        },
+        {
+          "@type": "LocalBusiness",
+          "@id": "__SITE_URL__/#localbusiness",
+          "name": "Visca Web Studio",
+          "description": "Visca Web Studio creates modern, high-performance websites for businesses, startups, restaurants, gyms, clinics, salons, and more. Fast, responsive, and built to grow your business.",
+          "url": "__SITE_URL__",
+          "telephone": "+919446054420",
+          "email": "viscawebstudio@gmail.com",
+          "image": "__SITE_URL__/social-preview.png"
+        }
+      ]
     }
     </script>
 
@@ -48,6 +87,7 @@
     <!-- Google Fonts Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div id="root"></div>

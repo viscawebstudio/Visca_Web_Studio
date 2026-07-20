@@ -1,70 +1,23 @@
 import React, { lazy, Suspense, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Hero from "./sections/Hero";
 import Footer from "./components/Footer";
 
 // Lazy loaded pages
+const HomePage = lazy(() => import("./pages/HomePage"));
 const Privacy = lazy(() => import("./pages/Privacy"));
 const Terms = lazy(() => import("./pages/Terms"));
 const ClientQuestionnaire = lazy(() => import("./pages/ClientQuestionnaire"));
 const SharedResponse = lazy(() => import("./pages/SharedResponse"));
 
-// Lazy loaded sections
-const Services = lazy(() => import("./sections/Services"));
-const Portfolio = lazy(() => import("./sections/Portfolio"));
-const Process = lazy(() => import("./sections/Process"));
-const WhyVisca = lazy(() => import("./sections/WhyVisca"));
-const Testimonials = lazy(() => import("./sections/Testimonials"));
-const TechStack = lazy(() => import("./sections/TechStack"));
-const Pricing = lazy(() => import("./sections/Pricing"));
-const Contact = lazy(() => import("./sections/Contact"));
-
-function SectionLoader() {
-  return (
-    <div className="w-full min-h-[400px] flex items-center justify-center bg-white py-24" aria-hidden="true">
-      <div className="w-8 h-8 rounded-full border-2 border-blue-500/10 border-t-blue-500 animate-spin" />
-    </div>
-  );
-}
-
 function PageLoader() {
   return (
-    <div className="w-full min-h-screen flex items-center justify-center bg-white" aria-hidden="true">
+    <div
+      className="w-full min-h-screen flex items-center justify-center bg-white"
+      aria-hidden="true"
+    >
       <div className="w-12 h-12 rounded-full border-4 border-blue-500/10 border-t-blue-500 animate-spin" />
     </div>
-  );
-}
-
-function HomePage() {
-  return (
-    <>
-      <Hero />
-      <Suspense fallback={<SectionLoader />}>
-        <Services />
-      </Suspense>
-      <Suspense fallback={<SectionLoader />}>
-        <Portfolio />
-      </Suspense>
-      <Suspense fallback={<SectionLoader />}>
-        <Process />
-      </Suspense>
-      <Suspense fallback={<SectionLoader />}>
-        <WhyVisca />
-      </Suspense>
-      <Suspense fallback={<SectionLoader />}>
-        <Testimonials />
-      </Suspense>
-      <Suspense fallback={<SectionLoader />}>
-        <TechStack />
-      </Suspense>
-      <Suspense fallback={<SectionLoader />}>
-        <Pricing />
-      </Suspense>
-      <Suspense fallback={<SectionLoader />}>
-        <Contact />
-      </Suspense>
-    </>
   );
 }
 
@@ -72,14 +25,15 @@ export default function App() {
   const { pathname, hash } = useLocation();
 
   useEffect(() => {
-    if (pathname === '/privacy') {
-      document.title = 'Privacy Policy | Visca Web Studio';
-    } else if (pathname === '/terms') {
-      document.title = 'Terms & Conditions | Visca Web Studio';
-    } else if (pathname === '/client-questionnaire') {
-      document.title = 'Client Questionnaire | Visca Web Studio';
+    if (pathname === "/privacy") {
+      document.title = "Privacy Policy | Visca Web Studio";
+    } else if (pathname === "/terms") {
+      document.title = "Terms & Conditions | Visca Web Studio";
+    } else if (pathname === "/client-questionnaire") {
+      document.title = "Client Questionnaire | Visca Web Studio";
     } else {
-      document.title = 'Visca Web Studio | Premium Website Design & Development';
+      document.title =
+        "Visca Web Studio | Premium Website Design & Development";
     }
 
     if (hash) {
@@ -107,7 +61,10 @@ export default function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
-            <Route path="/client-questionnaire" element={<ClientQuestionnaire />} />
+            <Route
+              path="/client-questionnaire"
+              element={<ClientQuestionnaire />}
+            />
             <Route path="/shared/:token" element={<SharedResponse />} />
           </Routes>
         </Suspense>
