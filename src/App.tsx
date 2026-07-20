@@ -1,6 +1,5 @@
 import React, { lazy, Suspense, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import { Analytics } from "@vercel/analytics/react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
@@ -26,16 +25,27 @@ export default function App() {
   const { pathname, hash } = useLocation();
 
   useEffect(() => {
+    let title = "Visca Web Studio | Premium Website Design & Development";
     if (pathname === "/privacy") {
-      document.title = "Privacy Policy | Visca Web Studio";
+      title = "Privacy Policy | Visca Web Studio";
     } else if (pathname === "/terms") {
-      document.title = "Terms & Conditions | Visca Web Studio";
+      title = "Terms & Conditions | Visca Web Studio";
     } else if (pathname === "/client-questionnaire") {
-      document.title = "Client Questionnaire | Visca Web Studio";
-    } else {
-      document.title =
-        "Visca Web Studio | Premium Website Design & Development";
+      title = "Client Questionnaire | Visca Web Studio";
     }
+    document.title = title;
+
+    // Update canonical link
+    let canonicalLink = document.querySelector("link[rel='canonical']");
+    if (!canonicalLink) {
+      canonicalLink = document.createElement("link");
+      canonicalLink.setAttribute("rel", "canonical");
+      document.head.appendChild(canonicalLink);
+    }
+    const siteUrl = import.meta.env.VITE_SITE_URL && !import.meta.env.VITE_SITE_URL.includes("vercel.app") 
+      ? import.meta.env.VITE_SITE_URL 
+      : "https://viscawebstudio.com";
+    canonicalLink.setAttribute("href", `${siteUrl}${pathname}`);
 
     if (hash) {
       const id = hash.replace("#", "");
@@ -71,7 +81,6 @@ export default function App() {
         </Suspense>
       </main>
       <Footer />
-      <Analytics />
     </div>
   );
 }

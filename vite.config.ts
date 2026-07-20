@@ -11,7 +11,7 @@ export default defineConfig(() => {
       {
         name: 'html-transform',
         transformIndexHtml(html) {
-          const envUrl = process.env.VITE_SITE_URL || '';
+          const envUrl = process.env.VITE_SITE_URL || 'https://viscawebstudio.com';
           const siteUrl = envUrl.includes('vercel.app') ? 'https://viscawebstudio.com' : envUrl;
           return html.replace(/__SITE_URL__/g, siteUrl);
         }

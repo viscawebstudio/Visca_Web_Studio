@@ -10,18 +10,18 @@
     <loc>https://viscawebstudio.com/client-questionnaire</loc>
     <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://viscawebstudio.com/privacy</loc>
     <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.3</priority>
   </url>
   <url>
     <loc>https://viscawebstudio.com/terms</loc>
     <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.3</priority>
   </url>
 </urlset>
