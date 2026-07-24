@@ -79,52 +79,46 @@ export default function App() {
       script.type = "application/ld+json";
       script.text = JSON.stringify({
         "@context": "https://schema.org",
-        "@graph": [
+        "@type": "ProfessionalService",
+        "@id": `${siteUrl}/#localbusiness`,
+        "name": "Visca Web Studio",
+        "url": `${siteUrl}`,
+        "logo": `${siteUrl}/logo.png`,
+        "image": `${siteUrl}/og-image.jpg`,
+        "email": "viscawebstudio@gmail.com",
+        "telephone": "+91 94460 54420",
+        "priceRange": "₹₹",
+        "description": "Visca Web Studio creates modern, high-performance websites for businesses, startups, restaurants, gyms, clinics, salons, and more. Fast, responsive, and built to grow your business.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Thiruvananthapuram",
+          "addressRegion": "Kerala",
+          "addressCountry": "India"
+        },
+        "areaServed": [
+          "Kerala",
+          "India"
+        ],
+        "openingHoursSpecification": [
           {
-            "@type": "Organization",
-            "@id": `${siteUrl}/#organization`,
-            "name": "Visca Web Studio",
-            "url": `${siteUrl}`,
-            "logo": `${siteUrl}/android-chrome-512x512.png`,
-            "contactPoint": {
-              "@type": "ContactPoint",
-              "telephone": "+919446054420",
-              "email": "viscawebstudio@gmail.com",
-              "contactType": "customer service"
-            }
-          },
-          {
-            "@type": "WebSite",
-            "@id": `${siteUrl}/#website`,
-            "url": `${siteUrl}`,
-            "name": "Visca Web Studio",
-            "alternateName": "VISCA Web Studio",
-            "publisher": {
-              "@id": `${siteUrl}/#organization`
-            }
-          },
-          {
-            "@type": "WebPage",
-            "@id": `${siteUrl}/#webpage`,
-            "url": `${siteUrl}`,
-            "name": "Visca Web Studio | Premium Website Design & Development",
-            "isPartOf": {
-              "@id": `${siteUrl}/#website`
-            },
-            "about": {
-              "@id": `${siteUrl}/#organization`
-            }
-          },
-          {
-            "@type": "LocalBusiness",
-            "@id": `${siteUrl}/#localbusiness`,
-            "name": "Visca Web Studio",
-            "description": "Visca Web Studio creates modern, high-performance websites for businesses, startups, restaurants, gyms, clinics, salons, and more. Fast, responsive, and built to grow your business.",
-            "url": `${siteUrl}`,
-            "telephone": "+919446054420",
-            "email": "viscawebstudio@gmail.com",
-            "image": `${siteUrl}/social-preview.png`
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+            ],
+            "opens": "00:00",
+            "closes": "23:59"
           }
+        ],
+        "sameAs": [
+          "https://www.instagram.com/viscawebstudio",
+          "https://wa.me/919446054420",
+          "https://www.facebook.com/share/19BnPWaKeq/"
         ]
       });
       document.head.appendChild(script);
