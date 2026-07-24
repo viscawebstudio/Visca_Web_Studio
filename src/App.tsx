@@ -116,9 +116,11 @@ export default function App() {
           }
         ],
         "sameAs": [
+          "https://viscawebstudio.com",
           "https://www.instagram.com/viscawebstudio",
+          "https://www.facebook.com/share/19BnPWaKeq/",
           "https://wa.me/919446054420",
-          "https://www.facebook.com/share/19BnPWaKeq/"
+          "mailto:viscawebstudio@gmail.com"
         ]
       });
       document.head.appendChild(script);

@@ -164,9 +164,21 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://www.instagram.com/viscawebstudio/"
+                  href="https://viscawebstudio.com"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Website"
+                  className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer"
+                >
+                  Website
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.instagram.com/viscawebstudio"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram profile"
                   className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer"
                 >
                   @viscawebstudio
@@ -174,9 +186,21 @@ export default function Footer() {
               </li>
               <li>
                 <a
+                  href="https://www.facebook.com/share/19BnPWaKeq/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook page"
+                  className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer"
+                >
+                  Facebook
+                </a>
+              </li>
+              <li>
+                <a
                   href="https://wa.me/919446054420"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="WhatsApp contact"
                   className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer"
                 >
                   +91 9446054420
@@ -184,9 +208,8 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://mail.google.com/mail/?view=cm&fs=1&to=viscawebstudio@gmail.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="mailto:viscawebstudio@gmail.com"
+                  aria-label="Email contact"
                   className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer"
                 >
                   viscawebstudio@gmail.com

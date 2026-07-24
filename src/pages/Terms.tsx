@@ -137,8 +137,7 @@ export default function Terms() {
             <p className="text-slate-600">
               If you have any questions about these Terms, please contact us at{" "}
               <a
-                href="https://mail.google.com/mail/?view=cm&fs=1&to=viscawebstudio@gmail.com"
-                target="_blank"
+                href="mailto:viscawebstudio@gmail.com"
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >

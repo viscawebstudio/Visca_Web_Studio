@@ -149,6 +149,7 @@ export default function Contact() {
               href="https://wa.me/919446054420"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Chat with us on WhatsApp"
               className="flex items-center justify-between p-5 rounded-2xl border border-blue-900/50 bg-[#05143a]/50 hover:bg-[#071a4a] transition-colors group"
             >
               <div className="pointer-events-none">
@@ -163,9 +164,9 @@ export default function Contact() {
             </a>
 
             <a
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=viscawebstudio@gmail.com"
-              target="_blank"
+              href="mailto:viscawebstudio@gmail.com"
               rel="noopener noreferrer"
+              aria-label="Send us an email"
               className="flex items-center justify-between p-5 rounded-2xl border border-blue-900/50 bg-[#05143a]/50 hover:bg-[#071a4a] transition-colors group"
             >
               <div className="pointer-events-none">

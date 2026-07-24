@@ -1,0 +1,6 @@
+Contact: mailto:viscawebstudio@gmail.com
+Contact: https://viscawebstudio.com/contact
+Preferred-Languages: en
+Canonical: https://viscawebstudio.com/.well-known/security.txt
+Policy: https://viscawebstudio.com/privacy
+Acknowledgments: https://viscawebstudio.com
