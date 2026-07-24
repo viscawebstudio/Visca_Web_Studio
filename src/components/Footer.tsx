@@ -208,7 +208,9 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:viscawebstudio@gmail.com"
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=viscawebstudio@gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label="Email contact"
                   className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer"
                 >
