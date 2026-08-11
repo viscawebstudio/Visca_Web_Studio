@@ -162,17 +162,7 @@ export default function Footer() {
                   Contact
                 </a>
               </li>
-              <li>
-                <a
-                  href="https://viscawebstudio.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Website"
-                  className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer"
-                >
-                  Website
-                </a>
-              </li>
+
               <li>
                 <a
                   href="https://www.instagram.com/viscawebstudio"
@@ -181,7 +171,7 @@ export default function Footer() {
                   aria-label="Instagram profile"
                   className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer"
                 >
-                  @viscawebstudio
+                  Instagram
                 </a>
               </li>
               <li>
@@ -203,7 +193,7 @@ export default function Footer() {
                   aria-label="WhatsApp contact"
                   className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer"
                 >
-                  +91 9446054420
+                  WhatsApp
                 </a>
               </li>
               <li>
@@ -214,7 +204,7 @@ export default function Footer() {
                   aria-label="Email contact"
                   className="text-blue-100 hover:text-white text-sm transition-colors cursor-pointer"
                 >
-                  viscawebstudio@gmail.com
+                  Gmail
                 </a>
               </li>
             </ul>
