@@ -77,10 +77,18 @@ export default function App() {
       const script = document.createElement("script");
       script.id = "structured-data";
       script.type = "application/ld+json";
-      script.text = JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        "@id": `${siteUrl}/#localbusiness`,
+      script.text = JSON.stringify([
+        {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "@id": `${siteUrl}/#website`,
+          "name": "Visca Web Studio",
+          "url": `${siteUrl}/`
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "ProfessionalService",
+          "@id": `${siteUrl}/#localbusiness`,
         "name": "Visca Web Studio",
         "url": `${siteUrl}`,
         "logo": `${siteUrl}/logo.png`,
@@ -122,7 +130,8 @@ export default function App() {
           "https://wa.me/919446054420",
           "mailto:viscawebstudio@gmail.com"
         ]
-      });
+      }
+      ]);
       document.head.appendChild(script);
     }
 
